@@ -100,7 +100,6 @@ export default function App() {
             <header className="border-b border-void-700 bg-void-900/80 backdrop-blur-sm sticky top-0 z-50 no-print">
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="text-2xl">🐙</div>
                         <div>
                             <h1 className="font-display text-gold-400 text-lg font-bold leading-none glow-gold">
                                 Trail of Cthulhu

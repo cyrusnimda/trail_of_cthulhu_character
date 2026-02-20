@@ -1,4 +1,5 @@
 import { getInvestigativePool, getGeneralPool } from '../data/rules'
+import cthulhuIcon from '../assets/imagen-cthulhu.webp'
 
 const PLAYER_OPTIONS = [1, 2, 3, 4, 5, 6]
 
@@ -12,7 +13,15 @@ export default function SetupStep({ character, updateCharacter, goNext }) {
         <div className="max-w-2xl mx-auto">
             {/* Title */}
             <div className="text-center mb-10">
-                <div className="text-5xl mb-4">🐙</div>
+                <img
+                    src={cthulhuIcon}
+                    alt="Cthulhu"
+                    className="w-32 h-32 mx-auto mb-4 object-cover"
+                    style={{
+                        maskImage: 'radial-gradient(circle, black 40%, transparent 70%)',
+                        WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 70%)'
+                    }}
+                />
                 <h2 className="font-display text-3xl text-gold-400 glow-gold mb-2">
                     Configuración de Partida
                 </h2>
