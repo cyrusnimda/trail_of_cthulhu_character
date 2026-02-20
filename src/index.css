@@ -25,13 +25,34 @@
 
   body {
     @apply bg-void-950 text-parchment-200 font-body antialiased;
-    background-image: 
+    background-image:
       radial-gradient(ellipse at 20% 50%, rgba(92, 79, 122, 0.08) 0%, transparent 60%),
       radial-gradient(ellipse at 80% 20%, rgba(139, 26, 26, 0.05) 0%, transparent 50%);
     min-height: 100vh;
+    position: relative;
   }
 
-  h1, h2, h3, h4 {
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./assets/cthullu.webp');
+    background-size: cover;
+    background-position: unset;
+    background-attachment: fixed;
+    opacity: 0.3;
+    /*filter: grayscale(100%) brightness(0.8);*/
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
     @apply font-display;
   }
 
@@ -45,7 +66,7 @@
 @layer components {
   .card {
     @apply bg-void-800 border border-void-600 rounded-xl p-6;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(201,168,76,0.05);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(201, 168, 76, 0.05);
   }
 
   .card-sm {
@@ -53,44 +74,31 @@
   }
 
   .btn-primary {
-    @apply bg-gold-500 hover:bg-gold-400 text-void-950 font-display font-semibold 
-           px-6 py-3 rounded-lg transition-all duration-200 
-           hover:shadow-lg hover:shadow-gold-500/20 active:scale-95
-           disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-gold-500 disabled:active:scale-100;
+    @apply bg-gold-500 hover:bg-gold-400 text-void-950 font-display font-semibold px-6 py-3 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-gold-500/20 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-gold-500 disabled:active:scale-100;
   }
 
   .btn-secondary {
-    @apply bg-void-700 hover:bg-void-600 text-parchment-200 font-semibold 
-           px-6 py-3 rounded-lg border border-void-500 hover:border-gold-600
-           transition-all duration-200 active:scale-95;
+    @apply bg-void-700 hover:bg-void-600 text-parchment-200 font-semibold px-6 py-3 rounded-lg border border-void-500 hover:border-gold-600 transition-all duration-200 active:scale-95;
   }
 
   .btn-ghost {
-    @apply text-parchment-400 hover:text-gold-400 font-medium 
-           px-4 py-2 rounded-lg transition-all duration-200
-           hover:bg-void-700;
+    @apply text-parchment-400 hover:text-gold-400 font-medium px-4 py-2 rounded-lg transition-all duration-200 hover:bg-void-700;
   }
 
   .counter-btn {
-    @apply w-7 h-7 rounded-md flex items-center justify-center text-sm font-bold
-           transition-all duration-150 active:scale-90 select-none;
+    @apply w-7 h-7 rounded-md flex items-center justify-center text-sm font-bold transition-all duration-150 active:scale-90 select-none;
   }
 
   .counter-btn-plus {
-    @apply counter-btn bg-gold-600/30 hover:bg-gold-500/50 text-gold-400 hover:text-gold-300
-           border border-gold-600/30 hover:border-gold-500/50
-           disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gold-600/30 disabled:hover:text-gold-400;
+    @apply counter-btn bg-gold-600/30 hover:bg-gold-500/50 text-gold-400 hover:text-gold-300 border border-gold-600/30 hover:border-gold-500/50 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gold-600/30 disabled:hover:text-gold-400;
   }
 
   .counter-btn-minus {
-    @apply counter-btn bg-void-700 hover:bg-void-600 text-parchment-400 hover:text-parchment-200
-           border border-void-500
-           disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-void-700 disabled:hover:text-parchment-400;
+    @apply counter-btn bg-void-700 hover:bg-void-600 text-parchment-400 hover:text-parchment-200 border border-void-500 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-void-700 disabled:hover:text-parchment-400;
   }
 
   .skill-row {
-    @apply flex items-center justify-between py-2 px-3 rounded-lg
-           hover:bg-void-700/50 transition-colors duration-150;
+    @apply flex items-center justify-between py-2 px-3 rounded-lg hover:bg-void-700/50 transition-colors duration-150;
   }
 
   .skill-row-occupational {
@@ -98,10 +106,7 @@
   }
 
   .input-field {
-    @apply bg-void-700 border border-void-500 rounded-lg px-4 py-2.5
-           text-parchment-200 placeholder-parchment-400/40
-           focus:outline-none focus:border-gold-500/60 focus:ring-1 focus:ring-gold-500/30
-           transition-all duration-200 w-full;
+    @apply bg-void-700 border border-void-500 rounded-lg px-4 py-2.5 text-parchment-200 placeholder-parchment-400/40 focus:outline-none focus:border-gold-500/60 focus:ring-1 focus:ring-gold-500/30 transition-all duration-200 w-full;
   }
 
   .select-field {
@@ -137,8 +142,7 @@
   }
 
   .step-indicator {
-    @apply w-8 h-8 rounded-full flex items-center justify-center text-sm font-display font-semibold
-           transition-all duration-300;
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-sm font-display font-semibold transition-all duration-300;
   }
 
   .step-active {
@@ -204,18 +208,39 @@
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateX(-12px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes pulse-gold {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0); }
-  50% { box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.15); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(201, 168, 76, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.15);
+  }
 }
 
 .animate-fade-in {

@@ -95,7 +95,7 @@ export default function App() {
     }
 
     return (
-        <div className="min-h-screen bg-void-950">
+        <div className="min-h-screen">
             {/* Header */}
             <header className="border-b border-void-700 bg-void-900/80 backdrop-blur-sm sticky top-0 z-50 no-print">
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
