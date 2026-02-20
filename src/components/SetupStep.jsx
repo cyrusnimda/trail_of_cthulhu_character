@@ -16,10 +16,10 @@ export default function SetupStep({ character, updateCharacter, goNext }) {
                 <img
                     src={cthulhuIcon}
                     alt="Cthulhu"
-                    className="w-32 h-32 mx-auto mb-4 object-cover"
+                    className="w-32 h-32 mx-auto object-cover"
                     style={{
-                        maskImage: 'radial-gradient(circle, black 40%, transparent 70%)',
-                        WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 70%)'
+                        maskImage: 'radial-gradient(circle, black 10%, transparent 70%)',
+                        WebkitMaskImage: 'radial-gradient(circle, black 10%, transparent 70%)'
                     }}
                 />
                 <h2 className="font-display text-3xl text-gold-400 glow-gold mb-2">
