@@ -79,7 +79,10 @@ export default function GeneralSkillsStep({
             <div className="text-center mb-6">
                 <h2 className="font-display text-3xl text-gold-400 glow-gold mb-2">Habilidades Generales</h2>
                 <p className="text-parchment-400/70 text-sm font-body">
-                    Distribuye tus puntos de habilidades generales. Salud y Estabilidad son tus pools de vida y cordura.
+                    Distribuye tus puntos de habilidades generales. Salud y Estabilidad son pools de vida y cordura.
+                </p>
+                <p className="text-gold-400/60 text-xs font-body mt-2 italic">
+                    Regla: Las habilidades ocupacionales cuestan la mitad (1 punto de construcción = 2 de habilidad).
                 </p>
             </div>
 
@@ -89,7 +92,7 @@ export default function GeneralSkillsStep({
                     <div>
                         <div className="text-xs text-parchment-400/60 font-body uppercase tracking-wide">Pool General</div>
                         <div className={`font-display text-4xl font-bold ${isOverspent ? 'text-blood-400' : generalRemaining === 0 ? 'text-gold-400' : 'text-parchment-200'}`}>
-                            {generalRemaining}
+                            {Number.isInteger(generalRemaining) ? generalRemaining : generalRemaining.toFixed(1)}
                             <span className="text-lg text-parchment-400/40 font-normal"> / {generalPool}</span>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ import ProgressBar from './components/ProgressBar'
 import { getInvestigativePool, getGeneralPool } from './data/rules'
 import { ALL_INVESTIGATIVE_SKILLS } from './data/skills'
 import { GENERAL_SKILLS } from './data/generalSkills'
+import { OCCUPATIONS } from './data/occupations'
 
 const STEPS = [
     { id: 'setup', label: 'Configuración', icon: '⚙️' },
@@ -59,8 +60,18 @@ export default function App() {
     const investigativePool = getInvestigativePool(character.players)
     const generalPool = getGeneralPool(character.mode)
 
-    const investigativeSpent = Object.values(character.investigativeSkills).reduce((a, b) => a + b, 0)
-    const generalSpent = Object.values(character.generalSkills).reduce((a, b) => a + b, 0)
+    const investigativeSpent = Object.entries(character.investigativeSkills).reduce((acc, [id, value]) => {
+        return acc + (value * 1.0) // Investigative is 1:1
+    }, 0)
+
+    const selectedOccupationObject = OCCUPATIONS.find(o => o.id === character.occupation)
+    const occupationalGeneralSkills = selectedOccupationObject?.generalSkills || []
+
+    const generalSpent = Object.entries(character.generalSkills).reduce((acc, [id, value]) => {
+        const isOccupational = occupationalGeneralSkills.includes(id)
+        const cost = isOccupational ? 0.5 : 1.0
+        return acc + (value * cost)
+    }, 0)
 
     const investigativeRemaining = investigativePool - investigativeSpent
     const generalRemaining = generalPool - generalSpent

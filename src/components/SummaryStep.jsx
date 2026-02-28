@@ -118,15 +118,15 @@ export default function SummaryStep({
                         <h3 className="section-title">Puntos Gastados</h3>
                         <div className="space-y-2 text-sm font-body">
                             <div className="flex justify-between items-center">
-                                <span className="text-parchment-400/60">Investigativos</span>
+                                <span className="text-parchment-400/60">Investigativos (PT)</span>
                                 <span className={investigativeSpent > investigativePool ? 'text-blood-400' : 'text-gold-400'}>
-                                    {investigativeSpent} / {investigativePool}
+                                    {Number.isInteger(investigativeSpent) ? investigativeSpent : investigativeSpent.toFixed(1)} / {investigativePool}
                                 </span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-parchment-400/60">Generales</span>
+                                <span className="text-parchment-400/60">Generales (PT)</span>
                                 <span className={generalSpent > generalPool ? 'text-blood-400' : 'text-gold-400'}>
-                                    {generalSpent} / {generalPool}
+                                    {Number.isInteger(generalSpent) ? generalSpent : generalSpent.toFixed(1)} / {generalPool}
                                 </span>
                             </div>
                         </div>

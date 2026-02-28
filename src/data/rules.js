@@ -63,6 +63,13 @@ export const getGeneralPool = (mode) => {
 // - Non-occupational investigative skills: max 2 points each
 export const MAX_NON_OCCUPATIONAL_INVESTIGATIVE = 2
 
+// Skill Costs (in build points per rating point)
+export const COSTS = {
+    INVESTIGATIVE: 1.0,
+    OCCUPATIONAL_GENERAL: 0.5,
+    NON_OCCUPATIONAL_GENERAL: 1.0,
+}
+
 // Age modifiers (optional rule)
 export const AGE_MODIFIERS = {
     young: { label: 'Joven (< 30)', generalBonus: 0, investigativeBonus: 0 },
