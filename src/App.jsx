@@ -8,6 +8,7 @@ import SummaryStep from './components/SummaryStep'
 import CharacterSheetStep from './components/CharacterSheetStep'
 import ProgressBar from './components/ProgressBar'
 import LanguageSwitcher from './components/LanguageSwitcher'
+import SocialMediaIcons from './components/SocialMediaIcons'
 import { getInvestigativePool, getGeneralPool } from './data/rules'
 import { ALL_INVESTIGATIVE_SKILLS } from './data/skills'
 import { GENERAL_SKILLS } from './data/generalSkills'
@@ -156,8 +157,10 @@ export default function App() {
             </main>
 
             {/* Footer */}
-            <footer className="no-print border-t border-void-700 mt-16 py-6 text-center">
-                <p className="text-parchment-400/30 text-xs font-body">
+            {/* Footer */}
+            <footer className="no-print border-t border-void-700 mt-20 py-12 text-center">
+                <SocialMediaIcons />
+                <p className="text-parchment-400/10 text-[9px] font-body uppercase tracking-[0.3em] font-medium max-w-md mx-auto leading-relaxed">
                     {t('footer.copyright')}
                 </p>
             </footer>
