@@ -1,7 +1,9 @@
+import { useTranslation } from 'react-i18next'
 import { GENERAL_SKILLS } from '../data/generalSkills'
 import { OCCUPATIONS } from '../data/occupations'
 
 function GeneralSkillRow({ skill, value, isOccupational, remaining, onChange }) {
+    const { t } = useTranslation()
     const canIncrease = remaining > 0
     const canDecrease = value > (skill.min || 0)
 
@@ -9,11 +11,11 @@ function GeneralSkillRow({ skill, value, isOccupational, remaining, onChange }) 
         <div className={isOccupational ? 'skill-row-occupational' : 'skill-row'}>
             <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-sm font-body text-parchment-200">{skill.name}</span>
-                    {isOccupational && <span className="badge-gold text-xs shrink-0">Ocup.</span>}
+                    <span className="text-sm font-body text-parchment-200">{t(`skills.general.${skill.id}.name`)}</span>
+                    {isOccupational && <span className="badge-gold text-xs shrink-0">{t('investigative_step.occupational_badge')}</span>}
                     {skill.isPool && <span className="badge-mythos text-xs shrink-0">Pool</span>}
                 </div>
-                <p className="text-xs text-parchment-400/40 font-body truncate">{skill.description}</p>
+                <p className="text-xs text-parchment-400/40 font-body truncate">{t(`skills.general.${skill.id}.description`)}</p>
             </div>
             <div className="flex items-center gap-2 ml-3 shrink-0">
                 <button
@@ -37,6 +39,7 @@ function GeneralSkillRow({ skill, value, isOccupational, remaining, onChange }) 
 export default function GeneralSkillsStep({
     character, updateCharacter, generalPool, generalRemaining, goNext, goPrev
 }) {
+    const { t } = useTranslation()
     const { generalSkills, occupation } = character
 
     const selectedOccupation = OCCUPATIONS.find(o => o.id === occupation)
@@ -77,12 +80,12 @@ export default function GeneralSkillsStep({
     return (
         <div className="max-w-4xl mx-auto">
             <div className="text-center mb-6">
-                <h2 className="font-display text-3xl text-gold-400 glow-gold mb-2">Habilidades Generales</h2>
+                <h2 className="font-display text-3xl text-gold-400 glow-gold mb-2">{t('general_step.title')}</h2>
                 <p className="text-parchment-400/70 text-sm font-body">
-                    Distribuye tus puntos de habilidades generales. Salud y Estabilidad son pools de vida y cordura.
+                    {t('general_step.subtitle')}
                 </p>
                 <p className="text-gold-400/60 text-xs font-body mt-2 italic">
-                    Regla: Las habilidades ocupacionales cuestan la mitad (1 punto de construcción = 2 de habilidad).
+                    {t('general_step.rule_half_cost')}
                 </p>
             </div>
 
@@ -90,7 +93,7 @@ export default function GeneralSkillsStep({
             <div className={`card mb-6 ${isOverspent ? 'border-blood-500/50' : ''}`}>
                 <div className="flex items-center justify-between mb-3">
                     <div>
-                        <div className="text-xs text-parchment-400/60 font-body uppercase tracking-wide">Pool General</div>
+                        <div className="text-xs text-parchment-400/60 font-body uppercase tracking-wide">{t('general_step.pool_title')}</div>
                         <div className={`font-display text-4xl font-bold ${isOverspent ? 'text-blood-400' : generalRemaining === 0 ? 'text-gold-400' : 'text-parchment-200'}`}>
                             {Number.isInteger(generalRemaining) ? generalRemaining : generalRemaining.toFixed(1)}
                             <span className="text-lg text-parchment-400/40 font-normal"> / {generalPool}</span>
@@ -99,12 +102,11 @@ export default function GeneralSkillsStep({
                     <div className="grid grid-cols-3 gap-3 text-center">
                         {['health', 'stability', 'sanity'].map(stat => {
                             const val = generalSkills[stat] || 0
-                            const labels = { health: 'Salud', stability: 'Estabilidad', sanity: 'Cordura' }
                             const colors = { health: 'text-blood-400', stability: 'text-mythos-400', sanity: 'text-gold-400' }
                             return (
                                 <div key={stat} className="bg-void-700 rounded-lg px-3 py-2">
-                                    <div className={`font-display text-xl font-bold ${colors[stat]}`}>{stat === 'sanity' ? val : val}</div>
-                                    <div className="text-xs text-parchment-400/50 font-body">{labels[stat]}</div>
+                                    <div className={`font-display text-xl font-bold ${colors[stat]}`}>{val}</div>
+                                    <div className="text-xs text-parchment-400/50 font-body">{t(`skills.general.${stat}.name`)}</div>
                                 </div>
                             )
                         })}
@@ -117,24 +119,24 @@ export default function GeneralSkillsStep({
                     />
                 </div>
                 {isOverspent && (
-                    <p className="text-blood-400 text-xs font-body mt-2">⚠ Has excedido el pool de puntos generales</p>
+                    <p className="text-blood-400 text-xs font-body mt-2">{t('general_step.overspent')}</p>
                 )}
             </div>
 
             <div className="card">
-                {renderGroup('Pools de Vida y Cordura', poolSkills)}
-                {renderGroup('Combate y Acción', combatSkills)}
-                {renderGroup('Otras Habilidades', otherSkills)}
+                {renderGroup(t('general_step.groups.pools'), poolSkills)}
+                {renderGroup(t('general_step.groups.combat'), combatSkills)}
+                {renderGroup(t('general_step.groups.other'), otherSkills)}
             </div>
 
             <div className="flex justify-between mt-6">
-                <button onClick={goPrev} className="btn-secondary">← Atrás</button>
+                <button onClick={goPrev} className="btn-secondary">{t('personal.back')}</button>
                 <button
                     onClick={goNext}
                     disabled={isOverspent}
                     className="btn-primary"
                 >
-                    Siguiente: Resumen →
+                    {t('steps.summary')} →
                 </button>
             </div>
         </div>

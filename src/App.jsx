@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import SetupStep from './components/SetupStep'
 import PersonalInfoStep from './components/PersonalInfoStep'
 import InvestigativeSkillsStep from './components/InvestigativeSkillsStep'
@@ -6,18 +7,19 @@ import GeneralSkillsStep from './components/GeneralSkillsStep'
 import SummaryStep from './components/SummaryStep'
 import CharacterSheetStep from './components/CharacterSheetStep'
 import ProgressBar from './components/ProgressBar'
+import LanguageSwitcher from './components/LanguageSwitcher'
 import { getInvestigativePool, getGeneralPool } from './data/rules'
 import { ALL_INVESTIGATIVE_SKILLS } from './data/skills'
 import { GENERAL_SKILLS } from './data/generalSkills'
 import { OCCUPATIONS } from './data/occupations'
 
 const STEPS = [
-    { id: 'setup', label: 'Configuración', icon: '⚙️' },
-    { id: 'personal', label: 'Personaje', icon: '👤' },
-    { id: 'investigative', label: 'Habilidades\nInvestigativas', icon: '🔍' },
-    { id: 'general', label: 'Habilidades\nGenerales', icon: '⚔️' },
-    { id: 'summary', label: 'Resumen', icon: '📋' },
-    { id: 'sheet', label: 'Hoja', icon: '📜' },
+    { id: 'setup', labelKey: 'steps.setup', icon: '⚙️' },
+    { id: 'personal', labelKey: 'steps.personal', icon: '👤' },
+    { id: 'investigative', labelKey: 'steps.investigative', icon: '🔍' },
+    { id: 'general', labelKey: 'steps.general', icon: '⚔️' },
+    { id: 'summary', labelKey: 'steps.summary', icon: '📋' },
+    { id: 'sheet', labelKey: 'steps.sheet', icon: '📜' },
 ]
 
 const createInitialInvestigativeSkills = () => {
@@ -50,6 +52,7 @@ const initialCharacter = {
 }
 
 export default function App() {
+    const { t } = useTranslation()
     const [step, setStep] = useState(0)
     const [character, setCharacter] = useState(initialCharacter)
 
@@ -105,6 +108,11 @@ export default function App() {
         }
     }
 
+    const translatedSteps = STEPS.map(s => ({
+        ...s,
+        label: t(s.labelKey)
+    }))
+
     return (
         <div className="min-h-screen">
             {/* Header */}
@@ -113,27 +121,31 @@ export default function App() {
                     <div className="flex items-center gap-3">
                         <div>
                             <h1 className="font-display text-gold-400 text-lg font-bold leading-none glow-gold">
-                                Trail of Cthulhu
+                                {t('header.title')}
                             </h1>
-                            <p className="text-parchment-400/60 text-xs font-body mt-0.5">Generador de Personajes</p>
+                            <p className="text-parchment-400/60 text-xs font-body mt-0.5">{t('header.subtitle')}</p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-parchment-400/50 font-body">
-                        <span className={`px-2 py-1 rounded-full border text-xs font-medium ${character.mode === 'pulp'
-                            ? 'bg-gold-500/10 border-gold-500/30 text-gold-400'
-                            : 'bg-mythos-600/20 border-mythos-500/30 text-mythos-400'
-                            }`}>
-                            {character.mode === 'pulp' ? '⚡ Pulp' : '🌑 Purista'}
-                        </span>
-                        <span className="text-parchment-400/40">·</span>
-                        <span>{character.players} jugador{character.players !== 1 ? 'es' : ''}</span>
+                    <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2 text-xs text-parchment-400/50 font-body">
+                            <span className={`px-2 py-1 rounded-full border text-xs font-medium ${character.mode === 'pulp'
+                                ? 'bg-gold-500/10 border-gold-500/30 text-gold-400'
+                                : 'bg-mythos-600/20 border-mythos-500/30 text-mythos-400'
+                                }`}>
+                                {character.mode === 'pulp' ? t('header.mode.pulp') : t('header.mode.purist')}
+                            </span>
+                            <span className="text-parchment-400/40">·</span>
+                            <span>{t('header.players', { count: character.players })}</span>
+                        </div>
+                        <div className="h-4 w-px bg-void-700 mx-1"></div>
+                        <LanguageSwitcher />
                     </div>
                 </div>
             </header>
 
             {/* Progress */}
             <div className="no-print">
-                <ProgressBar steps={STEPS} currentStep={step} onStepClick={goToStep} />
+                <ProgressBar steps={translatedSteps} currentStep={step} onStepClick={goToStep} />
             </div>
 
             {/* Main content */}
@@ -146,7 +158,7 @@ export default function App() {
             {/* Footer */}
             <footer className="no-print border-t border-void-700 mt-16 py-6 text-center">
                 <p className="text-parchment-400/30 text-xs font-body">
-                    Trail of Cthulhu es propiedad de Pelgrane Press · Sistema GUMSHOE
+                    {t('footer.copyright')}
                 </p>
             </footer>
         </div>

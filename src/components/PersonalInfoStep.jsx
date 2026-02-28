@@ -1,8 +1,10 @@
+import { useTranslation } from 'react-i18next'
 import { OCCUPATIONS } from '../data/occupations'
 import { PULP_DRIVES, PILLAR_CATEGORIES } from '../data/drives'
 import { CREDIT_RATING } from '../data/rules'
 
 export default function PersonalInfoStep({ character, updateCharacter, goNext, goPrev }) {
+    const { t } = useTranslation()
     const { name, playerName, age, occupation, creditRating, drive, pillars, mode } = character
 
     const selectedOccupation = OCCUPATIONS.find(o => o.id === occupation)
@@ -17,46 +19,46 @@ export default function PersonalInfoStep({ character, updateCharacter, goNext, g
     return (
         <div className="max-w-3xl mx-auto">
             <div className="text-center mb-8">
-                <h2 className="font-display text-3xl text-gold-400 glow-gold mb-2">Información Personal</h2>
-                <p className="text-parchment-400/70 text-sm font-body">Define quién es tu investigador</p>
+                <h2 className="font-display text-3xl text-gold-400 glow-gold mb-2">{t('personal.title')}</h2>
+                <p className="text-parchment-400/70 text-sm font-body">{t('personal.subtitle')}</p>
             </div>
 
             <div className="space-y-6">
                 {/* Basic info */}
                 <div className="card">
-                    <h3 className="section-title">Datos Básicos</h3>
+                    <h3 className="section-title">{t('personal.basic.title')}</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs text-parchment-400/70 font-body mb-1.5">
-                                Nombre del Personaje <span className="text-blood-400">*</span>
+                                {t('personal.basic.name')} <span className="text-blood-400">*</span>
                             </label>
                             <input
                                 type="text"
                                 value={name}
                                 onChange={e => updateCharacter({ name: e.target.value })}
-                                placeholder="Ej: Dr. Henry Armitage"
+                                placeholder={t('personal.basic.name_placeholder')}
                                 className="input-field"
                             />
                         </div>
                         <div>
                             <label className="block text-xs text-parchment-400/70 font-body mb-1.5">
-                                Nombre del Jugador
+                                {t('personal.basic.player')}
                             </label>
                             <input
                                 type="text"
                                 value={playerName}
                                 onChange={e => updateCharacter({ playerName: e.target.value })}
-                                placeholder="Tu nombre"
+                                placeholder={t('personal.basic.player_placeholder')}
                                 className="input-field"
                             />
                         </div>
                         <div>
-                            <label className="block text-xs text-parchment-400/70 font-body mb-1.5">Edad</label>
+                            <label className="block text-xs text-parchment-400/70 font-body mb-1.5">{t('personal.basic.age')}</label>
                             <input
                                 type="number"
                                 value={age}
                                 onChange={e => updateCharacter({ age: e.target.value })}
-                                placeholder="Ej: 42"
+                                placeholder={t('personal.basic.age_placeholder')}
                                 min="18"
                                 max="90"
                                 className="input-field"
@@ -64,7 +66,7 @@ export default function PersonalInfoStep({ character, updateCharacter, goNext, g
                         </div>
                         <div>
                             <label className="block text-xs text-parchment-400/70 font-body mb-1.5">
-                                Nivel de Crédito ({CREDIT_RATING.labels[creditRating]})
+                                {t('personal.basic.credit', { label: t(`rules.credit_labels.${creditRating}`) })}
                             </label>
                             <div className="flex items-center gap-3">
                                 <input
@@ -79,7 +81,11 @@ export default function PersonalInfoStep({ character, updateCharacter, goNext, g
                             </div>
                             {selectedOccupation && (
                                 <p className="text-xs text-parchment-400/50 font-body mt-1">
-                                    Rango para {selectedOccupation.name}: {selectedOccupation.creditRating.min}–{selectedOccupation.creditRating.max}
+                                    {t('personal.basic.credit_range', {
+                                        occupation: t(`occupations.${selectedOccupation.id}.name`),
+                                        min: selectedOccupation.creditRating.min,
+                                        max: selectedOccupation.creditRating.max
+                                    })}
                                 </p>
                             )}
                         </div>
@@ -88,7 +94,7 @@ export default function PersonalInfoStep({ character, updateCharacter, goNext, g
 
                 {/* Occupation */}
                 <div className="card">
-                    <h3 className="section-title">Ocupación <span className="text-blood-400">*</span></h3>
+                    <h3 className="section-title">{t('personal.occupation.title')} <span className="text-blood-400">*</span></h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 mb-4">
                         {OCCUPATIONS.map(occ => (
                             <button
@@ -100,14 +106,14 @@ export default function PersonalInfoStep({ character, updateCharacter, goNext, g
                                     })
                                 }}
                                 className={`
-                  px-3 py-2 rounded-lg text-xs font-body text-left transition-all duration-150
-                  ${occupation === occ.id
+                   px-3 py-2 rounded-lg text-xs font-body text-left transition-all duration-150
+                   ${occupation === occ.id
                                         ? 'bg-gold-500/20 border border-gold-500/60 text-gold-300'
                                         : 'bg-void-700 border border-void-500 text-parchment-400/80 hover:border-gold-600/40 hover:text-parchment-200'
                                     }
-                `}
+                 `}
                             >
-                                {occ.name}
+                                {t(`occupations.${occ.id}.name`)}
                             </button>
                         ))}
                     </div>
@@ -116,32 +122,32 @@ export default function PersonalInfoStep({ character, updateCharacter, goNext, g
                         <div className="p-4 bg-void-700/50 rounded-lg border border-gold-500/20 animate-fade-in">
                             <div className="flex items-start justify-between gap-4 mb-3">
                                 <div>
-                                    <h4 className="font-display text-gold-400 font-semibold">{selectedOccupation.name}</h4>
-                                    <p className="text-parchment-400/70 text-xs font-body mt-1">{selectedOccupation.description}</p>
+                                    <h4 className="font-display text-gold-400 font-semibold">{t(`occupations.${selectedOccupation.id}.name`)}</h4>
+                                    <p className="text-parchment-400/70 text-xs font-body mt-1">{t(`occupations.${selectedOccupation.id}.description`)}</p>
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-body">
                                 <div>
-                                    <span className="text-parchment-400/50 uppercase tracking-wide text-xs">Habilidades Investigativas:</span>
+                                    <span className="text-parchment-400/50 uppercase tracking-wide text-xs">{t('personal.occupation.investigative_skills')}</span>
                                     <div className="flex flex-wrap gap-1 mt-1">
                                         {selectedOccupation.investigativeSkills.map(s => (
-                                            <span key={s} className="badge-gold">{s.replace(/_/g, ' ')}</span>
+                                            <span key={s} className="badge-gold">{t(`skills.investigative.${s}.name`)}</span>
                                         ))}
                                     </div>
                                 </div>
                                 <div>
-                                    <span className="text-parchment-400/50 uppercase tracking-wide text-xs">Habilidades Generales:</span>
+                                    <span className="text-parchment-400/50 uppercase tracking-wide text-xs">{t('personal.occupation.general_skills')}</span>
                                     <div className="flex flex-wrap gap-1 mt-1">
                                         {selectedOccupation.generalSkills.map(s => (
-                                            <span key={s} className="badge bg-void-600 text-parchment-400/80 border border-void-400">{s.replace(/_/g, ' ')}</span>
+                                            <span key={s} className="badge bg-void-600 text-parchment-400/80 border border-void-400">{t(`skills.general.${s}.name`)}</span>
                                         ))}
                                     </div>
                                 </div>
                             </div>
                             {mode === 'pulp' && (
                                 <div className="mt-3 pt-3 border-t border-void-500">
-                                    <span className="text-gold-500/70 text-xs uppercase tracking-wide">⚡ Habilidad Pulp:</span>
-                                    <p className="text-parchment-400/70 text-xs mt-1">{selectedOccupation.pulpAbility}</p>
+                                    <span className="text-gold-500/70 text-xs uppercase tracking-wide">{t('personal.occupation.pulp_ability')}</span>
+                                    <p className="text-parchment-400/70 text-xs mt-1">{t(`occupations.${selectedOccupation.id}.pulpAbility`)}</p>
                                 </div>
                             )}
                         </div>
@@ -151,9 +157,9 @@ export default function PersonalInfoStep({ character, updateCharacter, goNext, g
                 {/* Drive or Pillars */}
                 {mode === 'pulp' ? (
                     <div className="card">
-                        <h3 className="section-title">⚡ Impulso (Drive) <span className="text-blood-400">*</span></h3>
+                        <h3 className="section-title">{t('personal.drive.title')} <span className="text-blood-400">*</span></h3>
                         <p className="text-parchment-400/60 text-xs font-body mb-4">
-                            ¿Qué motiva a tu investigador a enfrentarse a los horrores del Mythos?
+                            {t('personal.drive.description')}
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {PULP_DRIVES.map(d => (
@@ -161,17 +167,17 @@ export default function PersonalInfoStep({ character, updateCharacter, goNext, g
                                     key={d.id}
                                     onClick={() => updateCharacter({ drive: d.id })}
                                     className={`
-                    p-3 rounded-lg text-left transition-all duration-150 border
-                    ${drive === d.id
+                     p-3 rounded-lg text-left transition-all duration-150 border
+                     ${drive === d.id
                                             ? 'bg-gold-500/15 border-gold-500/50 text-parchment-200'
                                             : 'bg-void-700/50 border-void-500 text-parchment-400/80 hover:border-gold-600/30'
                                         }
-                  `}
+                   `}
                                 >
-                                    <div className="font-body font-medium text-sm">{d.name}</div>
-                                    <div className="text-xs text-parchment-400/50 mt-0.5 leading-relaxed">{d.description}</div>
+                                    <div className="font-body font-medium text-sm">{t(`drives.${d.id}.name`)}</div>
+                                    <div className="text-xs text-parchment-400/50 mt-0.5 leading-relaxed">{t(`drives.${d.id}.description`)}</div>
                                     {drive === d.id && (
-                                        <div className="text-xs text-gold-400/80 mt-1.5 italic">{d.stabilityBonus}</div>
+                                        <div className="text-xs text-gold-400/80 mt-1.5 italic">{t(`drives.${d.id}.stabilityBonus`)}</div>
                                     )}
                                 </button>
                             ))}
@@ -179,17 +185,17 @@ export default function PersonalInfoStep({ character, updateCharacter, goNext, g
                     </div>
                 ) : (
                     <div className="card">
-                        <h3 className="section-title">🌑 Pilares de Cordura <span className="text-blood-400">*</span></h3>
+                        <h3 className="section-title">{t('personal.pillars.title')} <span className="text-blood-400">*</span></h3>
                         <p className="text-parchment-400/60 text-xs font-body mb-4">
-                            Define las tres anclas que mantienen la cordura de tu investigador. Deben ser una persona, un lugar y una creencia.
+                            {t('personal.pillars.description')}
                         </p>
                         <div className="space-y-4">
                             {PILLAR_CATEGORIES.map(cat => (
                                 <div key={cat.id}>
                                     <label className="block text-sm font-body font-medium text-parchment-300 mb-1">
-                                        {cat.icon} {cat.name}
+                                        {cat.icon} {t(`pillars_cat.${cat.id}.name`)}
                                     </label>
-                                    <p className="text-xs text-parchment-400/50 font-body mb-2">{cat.description}</p>
+                                    <p className="text-xs text-parchment-400/50 font-body mb-2">{t(`pillars_cat.${cat.id}.description`)}</p>
                                     <input
                                         type="text"
                                         value={pillars[cat.id]}
@@ -198,7 +204,7 @@ export default function PersonalInfoStep({ character, updateCharacter, goNext, g
                                         className="input-field"
                                     />
                                     <p className="text-xs text-parchment-400/30 font-body mt-1">
-                                        Ejemplos: {cat.examples.slice(0, 3).join(', ')}
+                                        {t('personal.pillars.examples', { list: cat.examples.slice(0, 3).join(', ') })}
                                     </p>
                                 </div>
                             ))}
@@ -207,13 +213,13 @@ export default function PersonalInfoStep({ character, updateCharacter, goNext, g
                 )}
 
                 <div className="flex justify-between">
-                    <button onClick={goPrev} className="btn-secondary">← Atrás</button>
+                    <button onClick={goPrev} className="btn-secondary">{t('personal.back')}</button>
                     <button
                         onClick={goNext}
                         disabled={!canProceed}
                         className="btn-primary"
                     >
-                        Siguiente: Habilidades Investigativas →
+                        {t('personal.next')}
                     </button>
                 </div>
             </div>

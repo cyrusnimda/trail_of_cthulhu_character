@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import { INVESTIGATIVE_SKILLS, ALL_INVESTIGATIVE_SKILLS } from '../data/skills'
+import { useTranslation } from 'react-i18next'
+import { INVESTIGATIVE_SKILLS } from '../data/skills'
 import { OCCUPATIONS } from '../data/occupations'
 import { MAX_NON_OCCUPATIONAL_INVESTIGATIVE } from '../data/rules'
 
 function SkillCounter({ skill, value, isOccupational, remaining, onChange }) {
+    const { t } = useTranslation()
     const max = isOccupational ? 99 : MAX_NON_OCCUPATIONAL_INVESTIGATIVE
     const canIncrease = remaining > 0 && value < max
     const canDecrease = value > 0
@@ -12,12 +14,12 @@ function SkillCounter({ skill, value, isOccupational, remaining, onChange }) {
         <div className={isOccupational ? 'skill-row-occupational' : 'skill-row'}>
             <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                    <span className="text-sm font-body text-parchment-200 truncate">{skill.name}</span>
+                    <span className="text-sm font-body text-parchment-200 truncate">{t(`skills.investigative.${skill.id}.name`)}</span>
                     {isOccupational && (
-                        <span className="badge-gold text-xs shrink-0">Ocup.</span>
+                        <span className="badge-gold text-xs shrink-0">{t('investigative_step.occupational_badge')}</span>
                     )}
                 </div>
-                <p className="text-xs text-parchment-400/40 font-body truncate">{skill.description}</p>
+                <p className="text-xs text-parchment-400/40 font-body truncate">{t(`skills.investigative.${skill.id}.description`)}</p>
             </div>
             <div className="flex items-center gap-2 ml-3 shrink-0">
                 <button
@@ -41,6 +43,7 @@ function SkillCounter({ skill, value, isOccupational, remaining, onChange }) {
 export default function InvestigativeSkillsStep({
     character, updateCharacter, investigativePool, investigativeRemaining, goNext, goPrev
 }) {
+    const { t } = useTranslation()
     const [activeCategory, setActiveCategory] = useState('academic')
     const { investigativeSkills, occupation } = character
 
@@ -66,10 +69,9 @@ export default function InvestigativeSkillsStep({
     return (
         <div className="max-w-4xl mx-auto">
             <div className="text-center mb-6">
-                <h2 className="font-display text-3xl text-gold-400 glow-gold mb-2">Habilidades Investigativas</h2>
+                <h2 className="font-display text-3xl text-gold-400 glow-gold mb-2">{t('investigative_step.title')}</h2>
                 <p className="text-parchment-400/70 text-sm font-body">
-                    Distribuye tus puntos. Las habilidades ocupacionales no tienen límite máximo.
-                    Las no ocupacionales tienen un máximo de {MAX_NON_OCCUPATIONAL_INVESTIGATIVE} puntos.
+                    {t('investigative_step.subtitle', { max: MAX_NON_OCCUPATIONAL_INVESTIGATIVE })}
                 </p>
             </div>
 
@@ -77,21 +79,21 @@ export default function InvestigativeSkillsStep({
             <div className={`card mb-6 ${isOverspent ? 'border-blood-500/50' : ''}`}>
                 <div className="flex items-center justify-between mb-3">
                     <div>
-                        <div className="text-xs text-parchment-400/60 font-body uppercase tracking-wide">Pool Investigativo</div>
+                        <div className="text-xs text-parchment-400/60 font-body uppercase tracking-wide">{t('investigative_step.pool_title')}</div>
                         <div className={`font-display text-4xl font-bold ${isOverspent ? 'text-blood-400' : investigativeRemaining === 0 ? 'text-gold-400' : 'text-parchment-200'}`}>
                             {investigativeRemaining}
-                            <span className="text-lg text-parchment-400/40 font-normal"> / {investigativePool}</span>
+                            <span className="text-lg text-parchment-400/40 font-normal"> {t('investigative_step.points_label')} {investigativePool}</span>
                         </div>
                     </div>
                     <div className="text-right">
                         {isOverspent && (
-                            <div className="badge-blood">¡Excedido!</div>
+                            <div className="badge-blood">{t('investigative_step.exceeded')}</div>
                         )}
                         {investigativeRemaining === 0 && !isOverspent && (
-                            <div className="badge-gold">✓ Completo</div>
+                            <div className="badge-gold">{t('investigative_step.complete')}</div>
                         )}
                         {investigativeRemaining > 0 && (
-                            <div className="text-xs text-parchment-400/50 font-body">Puntos restantes</div>
+                            <div className="text-xs text-parchment-400/50 font-body">{t('investigative_step.points_remaining')}</div>
                         )}
                     </div>
                 </div>
@@ -119,9 +121,9 @@ export default function InvestigativeSkillsStep({
                                     }
                 `}
                             >
-                                <div className="font-body font-medium text-sm">{data.label}</div>
+                                <div className="font-body font-medium text-sm">{t(`skills.categories.${cat}`)}</div>
                                 <div className="text-xs text-parchment-400/40 mt-0.5">
-                                    {categoryTotals[cat]} pts · {data.skills.length} habilidades
+                                    {categoryTotals[cat]} {t('investigative_step.pts')} · {t(`investigative_step.skills_count_${data.skills.length === 1 ? 'one' : 'other'}`, { count: data.skills.length })}
                                 </div>
                             </button>
                         ))}
@@ -131,16 +133,16 @@ export default function InvestigativeSkillsStep({
                     <div className="mt-4 p-3 bg-void-700/30 rounded-lg border border-void-600">
                         <div className="flex items-center gap-2 mb-1">
                             <div className="w-1 h-4 bg-gold-500/60 rounded" />
-                            <span className="text-xs text-parchment-400/60 font-body">= Habilidad Ocupacional</span>
+                            <span className="text-xs text-parchment-400/60 font-body">{t('investigative_step.legend_occupational')}</span>
                         </div>
-                        <p className="text-xs text-parchment-400/40 font-body">Sin límite máximo de puntos</p>
+                        <p className="text-xs text-parchment-400/40 font-body">{t('investigative_step.legend_description')}</p>
                     </div>
                 </div>
 
                 {/* Skills list */}
                 <div className="lg:col-span-3">
                     <div className="card">
-                        <h3 className="section-title">{categoryData.label}</h3>
+                        <h3 className="section-title">{t(`skills.categories.${activeCategory}`)}</h3>
                         <div className="space-y-1">
                             {categoryData.skills.map(skill => (
                                 <SkillCounter
@@ -158,13 +160,13 @@ export default function InvestigativeSkillsStep({
             </div>
 
             <div className="flex justify-between mt-6">
-                <button onClick={goPrev} className="btn-secondary">← Atrás</button>
+                <button onClick={goPrev} className="btn-secondary">{t('personal.back')}</button>
                 <button
                     onClick={goNext}
                     disabled={isOverspent}
                     className="btn-primary"
                 >
-                    Siguiente: Habilidades Generales →
+                    {t('investigative_step.next_btn', { defaultValue: 'Next: General Skills →' })}
                 </button>
             </div>
         </div>

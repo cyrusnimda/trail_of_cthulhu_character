@@ -1,0 +1,573 @@
+{
+    "header": {
+        "title": "Trail of Cthulhu",
+        "subtitle": "Character Generator",
+        "mode": {
+            "pulp": "⚡ Pulp",
+            "purist": "🌑 Purist"
+        },
+        "players": "{{count}} player",
+        "players_plural": "{{count}} players"
+    },
+    "footer": {
+        "copyright": "Trail of Cthulhu is property of Pelgrane Press · GUMSHOE System"
+    },
+    "steps": {
+        "setup": "Setup",
+        "personal": "Character",
+        "investigative": "Investigative\nSkills",
+        "general": "General\nSkills",
+        "summary": "Summary",
+        "sheet": "Sheet"
+    },
+    "setup": {
+        "title": "Game Configuration",
+        "subtitle": "Set the number of players and the campaign tone",
+        "players": {
+            "title": "Number of Players",
+            "description": "The investigative skill pool increases with more players so everyone can contribute.",
+            "pool": "Investigative Pool:",
+            "points": "{{count}} points"
+        },
+        "mode": {
+            "title": "Game Mode",
+            "purist": {
+                "name": "Purist",
+                "selected": "Selected",
+                "description": "Ordinary investigators facing cosmic horrors. More lethal and terrifying. Requires <1>3 Pillars of Sanity</1>. The Mythos destroys minds.",
+                "pool": "General Pool: {{count}} pts"
+            },
+            "pulp": {
+                "name": "Pulp",
+                "selected": "Selected",
+                "description": "1930s-style action heroes. More resilient and capable. <1>Drives</1> instead of Pillars. More general skill points.",
+                "pool": "General Pool: {{count}} pts",
+                "bonus": "(+10 Pulp)"
+            }
+        },
+        "summary": {
+            "title": "Pools Summary",
+            "investigative": "Investigative Points",
+            "general": "General Points",
+            "players_one": "({{count}} player)",
+            "players_other": "({{count}} players)",
+            "mode_pulp": "(Pulp mode)",
+            "mode_purist": "(Purist mode)"
+        },
+        "next": "Next: Character →"
+    },
+    "personal": {
+        "title": "Personal Information",
+        "subtitle": "Define who your investigator is",
+        "basic": {
+            "title": "Basic Data",
+            "name": "Character Name",
+            "name_placeholder": "Ex: Dr. Henry Armitage",
+            "player": "Player Name",
+            "player_placeholder": "Your name",
+            "age": "Age",
+            "age_placeholder": "Ex: 42",
+            "credit": "Credit Rating ({{label}})",
+            "credit_range": "Range for {{occupation}}: {{min}}–{{max}}"
+        },
+        "occupation": {
+            "title": "Occupation",
+            "investigative_skills": "Investigative Skills:",
+            "general_skills": "General Skills:",
+            "pulp_ability": "⚡ Pulp Ability:"
+        },
+        "drive": {
+            "title": "⚡ Drive",
+            "description": "What motivates your investigator to face the horrors of the Mythos?"
+        },
+        "pillars": {
+            "title": "🌑 Pillars of Sanity",
+            "description": "Define the three anchors that keep your investigator's sanity. They must be a person, a place, and a belief.",
+            "examples": "Examples: {{list}}"
+        },
+        "back": "← Back",
+        "next": "Next: Investigative Skills →"
+    },
+    "investigative_step": {
+        "title": "Investigative Skills",
+        "subtitle": "Allocate your points. Occupational skills have no maximum limit. Non-occupational skills have a maximum of {{max}} points.",
+        "pool_title": "Investigative Pool",
+        "points_label": "/",
+        "exceeded": "Exceeded!",
+        "complete": "✓ Complete",
+        "points_remaining": "Points remaining",
+        "occupational_badge": "Occup.",
+        "legend_occupational": "= Occupational Skill",
+        "legend_description": "No maximum point limit",
+        "pts": "pts",
+        "skills_count_one": "{{count}} skill",
+        "skills_count_other": "{{count}} skills"
+    },
+    "general_step": {
+        "title": "General Skills",
+        "subtitle": "Allocate your general skill points. Health and Stability are life and sanity pools.",
+        "rule_half_cost": "Rule: Occupational skills cost half (1 construction point = 2 skill points).",
+        "pool_title": "General Pool",
+        "overspent": "⚠ You have exceeded the general points pool",
+        "groups": {
+            "pools": "Life and Sanity Pools",
+            "combat": "Combat and Action",
+            "other": "Other Skills"
+        }
+    },
+    "summary_step": {
+        "title": "Character Summary",
+        "subtitle": "Review your character before generating the final sheet",
+        "sections": {
+            "identity": "Identity",
+            "derived": "Derived Stats",
+            "points": "Spent Points"
+        },
+        "fields": {
+            "name": "Name",
+            "player": "Player",
+            "age": "Age",
+            "occupation": "Occupation",
+            "credit": "Credit",
+            "mode": "Mode",
+            "players": "Players"
+        },
+        "points": {
+            "investigative": "Investigative (PT)",
+            "general": "General (PT)"
+        },
+        "no_skills": "No skills assigned",
+        "view_sheet": "View Character Sheet →"
+    },
+    "sheet_step": {
+        "back_to_summary": "← Back to Summary",
+        "print_pdf": "🖨️ Print / Save PDF",
+        "system_info": "Trail of Cthulhu · GUMSHOE System",
+        "unnamed": "Unnamed Investigator",
+        "special_ability": "Special Ability",
+        "generated_with": "Generated with Trail Character Generator",
+        "print_hint": "Use Ctrl+P / Cmd+P or the print button to save as PDF"
+    },
+    "skills": {
+        "categories": {
+            "academic": "Academic",
+            "interpersonal": "Interpersonal",
+            "technical": "Technical"
+        },
+        "investigative": {
+            "anthropology": {
+                "name": "Anthropology",
+                "description": "Knowledge of human cultures, rituals and social behavior."
+            },
+            "archaeology": {
+                "name": "Archaeology",
+                "description": "Identify and date artifacts, excavate sites, know ancient civilizations."
+            },
+            "architecture": {
+                "name": "Architecture",
+                "description": "Design of buildings, hidden structures, blueprints and historical construction."
+            },
+            "art_history": {
+                "name": "Art History",
+                "description": "Identify art styles, periods, artists and authenticity of works."
+            },
+            "biology": {
+                "name": "Biology",
+                "description": "Knowledge of living organisms, anatomy, botany and zoology."
+            },
+            "cryptography": {
+                "name": "Cryptography",
+                "description": "Decipher codes, ciphers and hidden messages."
+            },
+            "geology": {
+                "name": "Geology",
+                "description": "Identify minerals, rocks, geological formations and terrains."
+            },
+            "history": {
+                "name": "History",
+                "description": "Knowledge of past events, figures and historical periods."
+            },
+            "languages": {
+                "name": "Languages",
+                "description": "Read, write and speak additional languages (specify which)."
+            },
+            "law": {
+                "name": "Law",
+                "description": "Knowledge of the legal system, court procedures and regulations."
+            },
+            "library_use": {
+                "name": "Library Use",
+                "description": "Locate information in archives, libraries and records."
+            },
+            "medicine": {
+                "name": "Medicine",
+                "description": "Diagnosis of diseases, treatments and human anatomy."
+            },
+            "occult": {
+                "name": "Occult",
+                "description": "Knowledge of magic, folklore, superstition and esoteric traditions."
+            },
+            "physics": {
+                "name": "Physics",
+                "description": "Natural laws, mechanics, electricity and physical sciences."
+            },
+            "theology": {
+                "name": "Theology",
+                "description": "World religions, sacred texts, rituals and beliefs."
+            },
+            "assess_honesty": {
+                "name": "Assess Honesty",
+                "description": "Detect lies and evaluate people's sincerity."
+            },
+            "bargain": {
+                "name": "Bargain",
+                "description": "Obtain better prices, favorable conditions in deals."
+            },
+            "cop_talk": {
+                "name": "Cop Talk",
+                "description": "Effectively communicate with police and law enforcement officials."
+            },
+            "flattery": {
+                "name": "Flattery",
+                "description": "Obtain information or favors through praise and adulation."
+            },
+            "intimidation": {
+                "name": "Intimidation",
+                "description": "Obtain cooperation through threats or psychological pressure."
+            },
+            "oral_history": {
+                "name": "Oral History",
+                "description": "Obtain information from elders or communities through conversation."
+            },
+            "reassurance": {
+                "name": "Reassurance",
+                "description": "Calm frightened or distressed people to obtain information."
+            },
+            "streetwise": {
+                "name": "Streetwise",
+                "description": "Move through the underworld, obtain information in criminal environments."
+            },
+            "astronomy": {
+                "name": "Astronomy",
+                "description": "Knowledge of celestial bodies, constellations and astronomical phenomena."
+            },
+            "chemistry": {
+                "name": "Chemistry",
+                "description": "Identify substances, perform chemical analysis and synthesis."
+            },
+            "craft": {
+                "name": "Craft",
+                "description": "Create physical objects, repair artifacts and specialized manual work."
+            },
+            "evidence_collection": {
+                "name": "Evidence Collection",
+                "description": "Find, preserve and analyze physical evidence at scenes."
+            },
+            "forensics": {
+                "name": "Forensics",
+                "description": "Examine corpses, determine causes of death and analyze crimes."
+            },
+            "locksmith": {
+                "name": "Locksmith",
+                "description": "Open locks, identify security mechanisms."
+            },
+            "mechanical_repair": {
+                "name": "Mechanical Repair",
+                "description": "Repair and maintain machinery, vehicles and mechanical devices."
+            },
+            "photography": {
+                "name": "Photography",
+                "description": "Take, develop and analyze photographs as evidence."
+            },
+            "pharmacy": {
+                "name": "Pharmacy",
+                "description": "Identify drugs, poisons and pharmacological substances."
+            }
+        },
+        "general": {
+            "athletics": {
+                "name": "Athletics",
+                "description": "Running, jumping, climbing, swimming and other physical activities."
+            },
+            "conceal": {
+                "name": "Conceal",
+                "description": "Hide objects on your person or in the environment."
+            },
+            "disguise": {
+                "name": "Disguise",
+                "description": "Alter your appearance to pass as another person."
+            },
+            "driving": {
+                "name": "Driving",
+                "description": "Driving cars and other land vehicles."
+            },
+            "electrical_repair": {
+                "name": "Electrical Repair",
+                "description": "Repair and manipulate electrical systems."
+            },
+            "explosives": {
+                "name": "Explosives",
+                "description": "Manufacture, place and deactivate explosives."
+            },
+            "filch": {
+                "name": "Filch",
+                "description": "Steal objects without being detected, pickpocketing."
+            },
+            "firearms": {
+                "name": "Firearms",
+                "description": "Shoot pistols, rifles and other firearms."
+            },
+            "first_aid": {
+                "name": "First Aid",
+                "description": "Stabilize wounds, treat minor injuries."
+            },
+            "fleeing": {
+                "name": "Fleeing",
+                "description": "Escape from pursuers, avoid being caught."
+            },
+            "health": {
+                "name": "Health",
+                "description": "Physical stamina and vitality. Maximum Health value."
+            },
+            "hypnosis": {
+                "name": "Hypnosis",
+                "description": "Induce hypnotic states to obtain information or treat trauma."
+            },
+            "piloting": {
+                "name": "Piloting",
+                "description": "Pilot planes, ships and other aircraft or vessels."
+            },
+            "preparedness": {
+                "name": "Preparedness",
+                "description": "Have the right equipment when needed."
+            },
+            "psychoanalysis": {
+                "name": "Psychoanalysis",
+                "description": "Treat psychological trauma and restore Stability."
+            },
+            "riding": {
+                "name": "Riding",
+                "description": "Ride and control horses and other mount animals."
+            },
+            "sanity": {
+                "name": "Sanity",
+                "description": "Mental resistance to cosmic horror. Maximum Sanity value."
+            },
+            "scuffling": {
+                "name": "Scuffling",
+                "description": "Close quarters combat, punching, grappling."
+            },
+            "sense_trouble": {
+                "name": "Sense Trouble",
+                "description": "Perceive threats, ambushes and dangerous situations."
+            },
+            "shadowing": {
+                "name": "Shadowing",
+                "description": "Follow people without being detected."
+            },
+            "stability": {
+                "name": "Stability",
+                "description": "Mental health and psychological resilience. Maximum Stability value."
+            },
+            "stealth": {
+                "name": "Stealth",
+                "description": "Move silently and avoid being seen."
+            },
+            "weapons": {
+                "name": "Weapons",
+                "description": "Use melee weapons: knives, clubs, swords."
+            }
+        }
+    },
+    "occupations": {
+        "antiquarian": {
+            "name": "Antiquarian",
+            "description": "Collector and expert in ancient objects and rarities. Frequently in contact with artifacts of dubious origin.",
+            "pulpAbility": "Rarity Collection: Once per session can declare that they possess a relevant object."
+        },
+        "author": {
+            "name": "Author",
+            "description": "Novelist, journalist or poet. Acute observer of the human condition.",
+            "pulpAbility": "Sharp Pen: Can use Flattery or Reassurance with an additional die."
+        },
+        "clergy": {
+            "name": "Clergy",
+            "description": "Religious minister, priest or pastor. Spiritual guide of their community.",
+            "pulpAbility": "Unwavering Faith: Recovers 2 additional Stability points after praying."
+        },
+        "criminal": {
+            "name": "Criminal",
+            "description": "Thief, swindler or member of organized crime. Knows the underworld.",
+            "pulpAbility": "Underworld Contacts: Can obtain information or resources from organized crime."
+        },
+        "dilettante": {
+            "name": "Dilettante",
+            "description": "Wealthy aristocrat without a fixed profession. Their resources open many doors.",
+            "pulpAbility": "Unlimited Wealth: Once per session can acquire any reasonable equipment."
+        },
+        "doctor": {
+            "name": "Doctor",
+            "description": "Qualified physician. Deep knowledge of the human body and its ailments.",
+            "pulpAbility": "Healing Hands: Can restore 2 additional Health points with First Aid."
+        },
+        "engineer": {
+            "name": "Engineer",
+            "description": "Expert in construction, mechanics or electrical engineering.",
+            "pulpAbility": "Technical Improvisation: Can create devices with materials at hand."
+        },
+        "entertainer": {
+            "name": "Entertainer",
+            "description": "Actor, musician or variety artist. Master of disguise and performance.",
+            "pulpAbility": "Master of Disguise: Can assume identities with greater ease."
+        },
+        "journalist": {
+            "name": "Journalist",
+            "description": "Reporter or correspondent. Always looking for the story behind the story.",
+            "pulpAbility": "Protected Sources: Can obtain information from sources that others cannot."
+        },
+        "lawyer": {
+            "name": "Lawyer",
+            "description": "Legal expert in the legal system. Skilled negotiator and orator.",
+            "pulpAbility": "Legal Defense: Can get investigators out of legal trouble."
+        },
+        "military_officer": {
+            "name": "Military Officer",
+            "description": "Officer of the army, navy or air force. Leadership and combat.",
+            "pulpAbility": "War Veteran: Immune to the effects of Panic in combat."
+        },
+        "nurse": {
+            "name": "Nurse",
+            "description": "Healthcare professional with practical experience in patient care.",
+            "pulpAbility": "Expert Care: Can stabilize the wounded with minimal resources."
+        },
+        "occultist": {
+            "name": "Occultist",
+            "description": "Student of the arcane, magic and supernatural phenomena.",
+            "pulpAbility": "Forbidden Knowledge: Can identify rituals and entities of the Mythos."
+        },
+        "parapsychologist": {
+            "name": "Parapsychologist",
+            "description": "Scientific investigator of paranormal and psychic phenomena.",
+            "pulpAbility": "Sixth Sense: Can detect supernatural presences."
+        },
+        "police_detective": {
+            "name": "Police Detective",
+            "description": "Experienced police investigator. Knows crime from the inside.",
+            "pulpAbility": "Police Instinct: Can ask additional questions at crime scenes."
+        },
+        "professor": {
+            "name": "Professor",
+            "description": "University academic. Broad theoretical knowledge and access to resources.",
+            "pulpAbility": "Erudition: Can attempt any academic skill without spent points."
+        },
+        "scientist": {
+            "name": "Scientist",
+            "description": "Researcher in natural or exact sciences. Scientific method above all.",
+            "pulpAbility": "Analytical Mind: Can repeat a technical skill roll once per scene."
+        },
+        "soldier": {
+            "name": "Soldier",
+            "description": "Combat veteran. Trained to survive in extreme situations.",
+            "pulpAbility": "Survival Instinct: Can act on the first turn of combat without a roll."
+        },
+        "spy": {
+            "name": "Spy",
+            "description": "Intelligence agent. Master of deception and infiltration.",
+            "pulpAbility": "False Identity: Has multiple cover identities prepared."
+        },
+        "tribal_member": {
+            "name": "Tribal Member",
+            "description": "Native of an indigenous culture. Unique knowledge of ancient traditions.",
+            "pulpAbility": "Ancestral Wisdom: Knows rituals and legends that others ignore."
+        }
+    },
+    "drives": {
+        "thrill": {
+            "name": "Thrill of Adventure",
+            "description": "You live for the adrenaline. Danger attracts you instead of repelling you.",
+            "stabilityBonus": "You recover 1 additional Stability point when you overcome a combat."
+        },
+        "duty": {
+            "name": "Duty",
+            "description": "You have an obligation to fulfill, whether to your country, your faith or your code of honor.",
+            "stabilityBonus": "You recover 1 Stability point when you fulfill your duty."
+        },
+        "revenge": {
+            "name": "Revenge",
+            "description": "Someone or something destroyed something you loved. You will find justice.",
+            "stabilityBonus": "You recover 2 Stability points when you advance towards your revenge."
+        },
+        "love": {
+            "name": "Love",
+            "description": "You protect someone you love or seek to reunite with them.",
+            "stabilityBonus": "You recover 1 Stability point when you protect your loved one."
+        },
+        "greed": {
+            "name": "Greed",
+            "description": "Money and power motivate you. There is always something to gain.",
+            "stabilityBonus": "You recover 1 Stability point when you obtain a significant reward."
+        },
+        "patriotism": {
+            "name": "Patriotism",
+            "description": "You serve your nation with pride. The good of your country is your good.",
+            "stabilityBonus": "You recover 1 Stability point when you serve the interests of your nation."
+        },
+        "faith": {
+            "name": "Faith",
+            "description": "Your religious or spiritual belief gives you strength before the inexplicable.",
+            "stabilityBonus": "You recover 2 Stability points when your faith is confirmed or put to the test."
+        },
+        "curiosity": {
+            "name": "Curiosity",
+            "description": "You need to know. Mysteries consume you until you solve them.",
+            "stabilityBonus": "You recover 1 Stability point when you discover an important hidden truth."
+        },
+        "protection": {
+            "name": "Protection",
+            "description": "You protect the innocent from threats they cannot see.",
+            "stabilityBonus": "You recover 2 Stability points when you save someone from a supernatural danger."
+        },
+        "knowledge": {
+            "name": "Knowledge",
+            "description": "The truth, however dark, must be known and documented.",
+            "stabilityBonus": "You recover 1 Stability point when you document an important discovery."
+        },
+        "justice": {
+            "name": "Justice",
+            "description": "Evil must be punished. You are the balance between law and chaos.",
+            "stabilityBonus": "You recover 2 Stability points when you bring a criminal to justice."
+        },
+        "survival": {
+            "name": "Survival",
+            "description": "You simply want to get out alive. That's enough motivation.",
+            "stabilityBonus": "You recover 1 Stability point at the end of each session you survive."
+        }
+    },
+    "pillars_cat": {
+        "person": {
+            "name": "A Person",
+            "description": "Someone whose existence and well-being anchors your sanity."
+        },
+        "place": {
+            "name": "A Place",
+            "description": "A place that represents safety, home or normalcy for you."
+        },
+        "belief": {
+            "name": "A Belief or Ideal",
+            "description": "A principle, faith or ideal that gives meaning to your existence."
+        }
+    },
+    "rules": {
+        "credit_labels": {
+            "0": "Destitute",
+            "1": "Poor",
+            "2": "Struggling",
+            "3": "Average",
+            "4": "Comfortable",
+            "5": "Well-off",
+            "6": "Wealthy",
+            "7": "Rich",
+            "8": "Wealthy"
+        }
+    }
+}

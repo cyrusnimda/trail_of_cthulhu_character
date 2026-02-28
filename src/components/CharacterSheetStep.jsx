@@ -1,11 +1,12 @@
 import { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { OCCUPATIONS } from '../data/occupations'
 import { INVESTIGATIVE_SKILLS } from '../data/skills'
 import { GENERAL_SKILLS } from '../data/generalSkills'
-import { PULP_DRIVES, PILLAR_CATEGORIES } from '../data/drives'
-import { CREDIT_RATING } from '../data/rules'
+import { PILLAR_CATEGORIES } from '../data/drives'
 
 export default function CharacterSheetStep({ character, goPrev }) {
+    const { t } = useTranslation()
     const sheetRef = useRef(null)
 
     const {
@@ -14,7 +15,6 @@ export default function CharacterSheetStep({ character, goPrev }) {
     } = character
 
     const selectedOccupation = OCCUPATIONS.find(o => o.id === occupation)
-    const selectedDrive = PULP_DRIVES.find(d => d.id === drive)
 
     const health = generalSkills['health'] || 0
     const stability = generalSkills['stability'] || 0
@@ -34,10 +34,10 @@ export default function CharacterSheetStep({ character, goPrev }) {
         <div>
             {/* Controls */}
             <div className="no-print flex justify-between items-center mb-6">
-                <button onClick={goPrev} className="btn-secondary">← Volver al Resumen</button>
+                <button onClick={goPrev} className="btn-secondary">{t('sheet_step.back_to_summary')}</button>
                 <div className="flex gap-3">
                     <button onClick={handlePrint} className="btn-primary flex items-center gap-2">
-                        🖨️ Imprimir / Guardar PDF
+                        {t('sheet_step.print_pdf')}
                     </button>
                 </div>
             </div>
@@ -52,25 +52,27 @@ export default function CharacterSheetStep({ character, goPrev }) {
                 <div className="bg-gradient-to-r from-void-950 via-void-800 to-void-950 border-b border-gold-600/30 p-8">
                     <div className="flex items-start justify-between">
                         <div>
-                            <div className="text-gold-600/40 font-display text-xs uppercase tracking-widest mb-1">Trail of Cthulhu · Sistema GUMSHOE</div>
+                            <div className="text-gold-600/40 font-display text-xs uppercase tracking-widest mb-1">{t('sheet_step.system_info')}</div>
                             <h1 className="font-display text-4xl font-bold text-gold-400 glow-gold leading-none">
-                                {name || 'Sin Nombre'}
+                                {name || t('sheet_step.unnamed')}
                             </h1>
                             {selectedOccupation && (
-                                <div className="text-parchment-400/80 font-body text-lg mt-1">{selectedOccupation.name}</div>
+                                <div className="text-parchment-400/80 font-body text-lg mt-1">{t(`occupations.${selectedOccupation.id}.name`)}</div>
                             )}
                             <div className="flex items-center gap-3 mt-2 text-sm font-body text-parchment-400/50">
-                                {playerName && <span>Jugador: {playerName}</span>}
-                                {age && <><span>·</span><span>Edad: {age}</span></>}
+                                {playerName && <span>{t('summary_step.fields.player')}: {playerName}</span>}
+                                {age && <><span>·</span><span>{t('summary_step.fields.age')}: {age}</span></>}
                                 <span>·</span>
-                                <span>Crédito: {creditRating} ({CREDIT_RATING.labels[creditRating]})</span>
+                                <span>{t('summary_step.fields.credit')}: {creditRating} ({t(`rules.credit_labels.${creditRating}`)})</span>
                             </div>
                         </div>
                         <div className="text-right">
                             <div className={`text-2xl font-display font-bold ${mode === 'pulp' ? 'text-gold-400' : 'text-mythos-400'}`}>
-                                {mode === 'pulp' ? '⚡ PULP' : '🌑 PURISTA'}
+                                {mode === 'pulp' ? t('header.mode.pulp').toUpperCase() : t('header.mode.purist').toUpperCase()}
                             </div>
-                            <div className="text-xs text-parchment-400/40 font-body mt-1">{players} jugador{players !== 1 ? 'es' : ''}</div>
+                            <div className="text-xs text-parchment-400/40 font-body mt-1">
+                                {t(`header.players${players !== 1 ? '_plural' : ''}`, { count: players })}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -79,15 +81,15 @@ export default function CharacterSheetStep({ character, goPrev }) {
                 <div className="bg-void-800 border-b border-void-600 px-8 py-4">
                     <div className="grid grid-cols-3 gap-6 text-center">
                         {[
-                            { label: 'SALUD', value: health, color: 'text-blood-400', bg: 'bg-blood-500/10 border-blood-500/30' },
-                            { label: 'ESTABILIDAD', value: stability, color: 'text-mythos-400', bg: 'bg-mythos-600/10 border-mythos-500/30' },
-                            { label: 'CORDURA', value: sanity, color: 'text-gold-400', bg: 'bg-gold-500/10 border-gold-500/30' },
+                            { id: 'health', label: t('skills.general.health.name').toUpperCase(), value: health, color: 'text-blood-400', bg: 'bg-blood-500/10 border-blood-500/30' },
+                            { id: 'stability', label: t('skills.general.stability.name').toUpperCase(), value: stability, color: 'text-mythos-400', bg: 'bg-mythos-600/10 border-mythos-500/30' },
+                            { id: 'sanity', label: t('skills.general.sanity.name').toUpperCase(), value: sanity, color: 'text-gold-400', bg: 'bg-gold-500/10 border-gold-500/30' },
                         ].map(stat => (
-                            <div key={stat.label} className={`rounded-xl border py-4 ${stat.bg}`}>
+                            <div key={stat.id} className={`rounded-xl border py-4 ${stat.bg}`}>
                                 <div className={`font-display text-5xl font-bold ${stat.color}`}>{stat.value}</div>
                                 <div className="text-xs text-parchment-400/50 font-body uppercase tracking-widest mt-1">{stat.label}</div>
                                 <div className="flex justify-center gap-1 mt-2">
-                                    {Array.from({ length: stat.value }).map((_, i) => (
+                                    {Array.from({ length: Math.max(0, stat.value) }).map((_, i) => (
                                         <div key={i} className={`w-3 h-3 rounded-full border ${stat.color.replace('text-', 'border-')} opacity-40`} />
                                     ))}
                                 </div>
@@ -101,18 +103,18 @@ export default function CharacterSheetStep({ character, goPrev }) {
                     {/* Investigative skills */}
                     <div>
                         <h2 className="font-display text-gold-500 text-sm uppercase tracking-widest border-b border-gold-600/30 pb-2 mb-4">
-                            Habilidades Investigativas
+                            {t('investigative_step.title')}
                         </h2>
                         {Object.entries(allocatedInvestigative).length > 0 ? (
                             Object.entries(allocatedInvestigative).map(([cat, data]) => (
                                 <div key={cat} className="mb-4">
-                                    <div className="text-xs text-parchment-400/40 uppercase tracking-wide font-body mb-1">{data.label}</div>
+                                    <div className="text-xs text-parchment-400/40 uppercase tracking-wide font-body mb-1">{t(`skills.categories.${cat}`)}</div>
                                     <div className="space-y-1">
                                         {data.skills.map(skill => {
                                             const isOcc = selectedOccupation?.investigativeSkills.includes(skill.id)
                                             return (
                                                 <div key={skill.id} className={`flex justify-between items-center py-1 px-2 rounded ${isOcc ? 'bg-gold-500/8 border-l-2 border-gold-500/50' : ''}`}>
-                                                    <span className="text-sm font-body text-parchment-300">{skill.name}</span>
+                                                    <span className="text-sm font-body text-parchment-300">{t(`skills.investigative.${skill.id}.name`)}</span>
                                                     <span className="font-display font-bold text-gold-400">{investigativeSkills[skill.id]}</span>
                                                 </div>
                                             )
@@ -121,14 +123,14 @@ export default function CharacterSheetStep({ character, goPrev }) {
                                 </div>
                             ))
                         ) : (
-                            <p className="text-parchment-400/30 text-sm italic font-body">Sin habilidades asignadas</p>
+                            <p className="text-parchment-400/30 text-sm italic font-body">{t('summary_step.no_skills')}</p>
                         )}
                     </div>
 
                     {/* General skills + Drive/Pillars */}
                     <div>
                         <h2 className="font-display text-gold-500 text-sm uppercase tracking-widest border-b border-gold-600/30 pb-2 mb-4">
-                            Habilidades Generales
+                            {t('general_step.title')}
                         </h2>
                         <div className="space-y-1 mb-6">
                             {allocatedGeneral.map(skill => {
@@ -136,7 +138,7 @@ export default function CharacterSheetStep({ character, goPrev }) {
                                 return (
                                     <div key={skill.id} className={`flex justify-between items-center py-1 px-2 rounded ${isOcc ? 'bg-gold-500/8 border-l-2 border-gold-500/50' : ''}`}>
                                         <span className={`text-sm font-body ${skill.isPool ? 'text-gold-300 font-medium' : 'text-parchment-300'}`}>
-                                            {skill.name}
+                                            {t(`skills.general.${skill.id}.name`)}
                                         </span>
                                         <span className={`font-display font-bold ${skill.isPool ? 'text-gold-400' : 'text-parchment-200'}`}>
                                             {generalSkills[skill.id]}
@@ -149,23 +151,23 @@ export default function CharacterSheetStep({ character, goPrev }) {
                         {/* Drive / Pillars */}
                         <div className="border-t border-void-600 pt-4">
                             <h2 className="font-display text-gold-500 text-sm uppercase tracking-widest mb-3">
-                                {mode === 'pulp' ? '⚡ Impulso' : '🌑 Pilares de Cordura'}
+                                {mode === 'pulp' ? t('personal.drive.title') : t('personal.pillars.title')}
                             </h2>
                             {mode === 'pulp' ? (
                                 <div className="bg-gold-500/8 border border-gold-500/20 rounded-lg p-3">
-                                    <div className="font-body font-semibold text-parchment-200">{selectedDrive?.name || '—'}</div>
-                                    {selectedDrive && (
-                                        <p className="text-xs text-parchment-400/60 font-body mt-1">{selectedDrive.description}</p>
+                                    <div className="font-body font-semibold text-parchment-200">{drive ? t(`drives.${drive}.name`) : '—'}</div>
+                                    {drive && (
+                                        <p className="text-xs text-parchment-400/60 font-body mt-1">{t(`drives.${drive}.description`)}</p>
                                     )}
-                                    {selectedDrive && (
-                                        <p className="text-xs text-gold-400/70 font-body mt-1 italic">{selectedDrive.stabilityBonus}</p>
+                                    {drive && (
+                                        <p className="text-xs text-gold-400/70 font-body mt-1 italic">{t(`drives.${drive}.stabilityBonus`)}</p>
                                     )}
                                 </div>
                             ) : (
                                 <div className="space-y-2">
                                     {PILLAR_CATEGORIES.map(cat => (
                                         <div key={cat.id} className="bg-mythos-600/10 border border-mythos-500/20 rounded-lg p-2">
-                                            <div className="text-xs text-parchment-400/40 font-body">{cat.icon} {cat.name}</div>
+                                            <div className="text-xs text-parchment-400/40 font-body">{cat.icon} {t(`pillars_cat.${cat.id}.name`)}</div>
                                             <div className="text-sm text-parchment-200 font-body">{pillars[cat.id] || '—'}</div>
                                         </div>
                                     ))}
@@ -176,10 +178,10 @@ export default function CharacterSheetStep({ character, goPrev }) {
                         {/* Occupation ability */}
                         {mode === 'pulp' && selectedOccupation && (
                             <div className="border-t border-void-600 pt-4 mt-4">
-                                <h2 className="font-display text-gold-500 text-sm uppercase tracking-widest mb-2">Habilidad Especial</h2>
+                                <h2 className="font-display text-gold-500 text-sm uppercase tracking-widest mb-2">{t('sheet_step.special_ability')}</h2>
                                 <div className="bg-gold-500/5 border border-gold-500/15 rounded-lg p-3">
-                                    <div className="text-xs text-gold-500/70 font-body uppercase tracking-wide mb-1">{selectedOccupation.name}</div>
-                                    <p className="text-xs text-parchment-400/70 font-body">{selectedOccupation.pulpAbility}</p>
+                                    <div className="text-xs text-gold-500/70 font-body uppercase tracking-wide mb-1">{t(`occupations.${selectedOccupation.id}.name`)}</div>
+                                    <p className="text-xs text-parchment-400/70 font-body">{t(`occupations.${selectedOccupation.id}.pulpAbility`)}</p>
                                 </div>
                             </div>
                         )}
@@ -189,16 +191,16 @@ export default function CharacterSheetStep({ character, goPrev }) {
                 {/* Footer */}
                 <div className="border-t border-void-600 px-8 py-4 bg-void-950/50">
                     <div className="flex justify-between items-center text-xs text-parchment-400/30 font-body">
-                        <span>Trail of Cthulhu © Pelgrane Press · Sistema GUMSHOE</span>
+                        <span>{t('sheet_step.system_info')}</span>
                         <span className="ornament">✦ ✦ ✦</span>
-                        <span>Generado con Trail Character Generator</span>
+                        <span>{t('sheet_step.generated_with')}</span>
                     </div>
                 </div>
             </div>
 
             <div className="no-print mt-8 text-center">
                 <p className="text-parchment-400/40 text-xs font-body">
-                    Usa Ctrl+P / Cmd+P o el botón de imprimir para guardar como PDF
+                    {t('sheet_step.print_hint')}
                 </p>
             </div>
         </div>
