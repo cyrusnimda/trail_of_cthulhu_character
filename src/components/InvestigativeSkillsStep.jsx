@@ -73,6 +73,9 @@ export default function InvestigativeSkillsStep({
                 <p className="text-parchment-400/70 text-sm font-body">
                     {t('investigative_step.subtitle', { max: MAX_NON_OCCUPATIONAL_INVESTIGATIVE })}
                 </p>
+                <p className="text-gold-400/60 text-xs font-body mt-2 italic">
+                    {t('investigative_step.rule_half_cost')}
+                </p>
             </div>
 
             {/* Pool display */}
@@ -81,7 +84,7 @@ export default function InvestigativeSkillsStep({
                     <div>
                         <div className="text-xs text-parchment-400/60 font-body uppercase tracking-wide">{t('investigative_step.pool_title')}</div>
                         <div className={`font-display text-4xl font-bold ${isOverspent ? 'text-blood-400' : investigativeRemaining === 0 ? 'text-gold-400' : 'text-parchment-200'}`}>
-                            {investigativeRemaining}
+                            {Number.isInteger(investigativeRemaining) ? investigativeRemaining : investigativeRemaining.toFixed(1)}
                             <span className="text-lg text-parchment-400/40 font-normal"> {t('investigative_step.points_label')} {investigativePool}</span>
                         </div>
                     </div>

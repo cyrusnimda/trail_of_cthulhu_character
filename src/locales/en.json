@@ -91,6 +91,7 @@
     "investigative_step": {
         "title": "Investigative Skills",
         "subtitle": "Allocate your points. Occupational skills have no maximum limit. Non-occupational skills have a maximum of {{max}} points.",
+        "rule_half_cost": "Rule: Occupational skills cost half (1 construction point = 2 skill points).",
         "pool_title": "Investigative Pool",
         "points_label": "/",
         "exceeded": "Exceeded!",

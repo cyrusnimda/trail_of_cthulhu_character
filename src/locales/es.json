@@ -91,6 +91,7 @@
     "investigative_step": {
         "title": "Habilidades Investigativas",
         "subtitle": "Distribuye tus puntos. Las habilidades ocupacionales no tienen límite máximo. Las no ocupacionales tienen un máximo de {{max}} puntos.",
+        "rule_half_cost": "Regla: Las habilidades ocupacionales cuestan la mitad (1 punto de construcción = 2 de habilidad).",
         "pool_title": "Pool Investigativo",
         "points_label": "/",
         "exceeded": "¡Excedido!",

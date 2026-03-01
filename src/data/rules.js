@@ -66,6 +66,7 @@ export const MAX_NON_OCCUPATIONAL_INVESTIGATIVE = 2
 // Skill Costs (in build points per rating point)
 export const COSTS = {
     INVESTIGATIVE: 1.0,
+    OCCUPATIONAL_INVESTIGATIVE: 0.5,
     OCCUPATIONAL_GENERAL: 0.5,
     NON_OCCUPATIONAL_GENERAL: 1.0,
 }
