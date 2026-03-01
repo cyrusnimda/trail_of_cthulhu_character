@@ -9,7 +9,7 @@ import CharacterSheetStep from './components/CharacterSheetStep'
 import ProgressBar from './components/ProgressBar'
 import LanguageSwitcher from './components/LanguageSwitcher'
 import SocialMediaIcons from './components/SocialMediaIcons'
-import { getInvestigativePool, getGeneralPool, COSTS } from './data/rules'
+import { getInvestigativePool, getGeneralPool, COSTS, calculateInvestigativeSpent, calculateGeneralSpent } from './data/rules'
 import { ALL_INVESTIGATIVE_SKILLS } from './data/skills'
 import { GENERAL_SKILLS } from './data/generalSkills'
 import { OCCUPATIONS } from './data/occupations'
@@ -68,17 +68,8 @@ export default function App() {
     const occupationalInvestigativeSkills = selectedOccupationObject?.investigativeSkills || []
     const occupationalGeneralSkills = selectedOccupationObject?.generalSkills || []
 
-    const investigativeSpent = Object.entries(character.investigativeSkills).reduce((acc, [id, value]) => {
-        const isOccupational = occupationalInvestigativeSkills.includes(id)
-        const cost = isOccupational ? COSTS.OCCUPATIONAL_INVESTIGATIVE : COSTS.INVESTIGATIVE
-        return acc + (value * cost)
-    }, 0)
-
-    const generalSpent = Object.entries(character.generalSkills).reduce((acc, [id, value]) => {
-        const isOccupational = occupationalGeneralSkills.includes(id)
-        const cost = isOccupational ? 0.5 : 1.0
-        return acc + (value * cost)
-    }, 0)
+    const investigativeSpent = calculateInvestigativeSpent(character.investigativeSkills, occupationalInvestigativeSkills)
+    const generalSpent = calculateGeneralSpent(character.generalSkills, occupationalGeneralSkills)
 
     const investigativeRemaining = investigativePool - investigativeSpent
     const generalRemaining = generalPool - generalSpent

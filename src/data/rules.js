@@ -71,6 +71,22 @@ export const COSTS = {
     NON_OCCUPATIONAL_GENERAL: 1.0,
 }
 
+export const calculateInvestigativeSpent = (investigativeSkills, occupationalSkills) => {
+    return Object.entries(investigativeSkills).reduce((acc, [id, value]) => {
+        const isOccupational = occupationalSkills.includes(id)
+        const cost = isOccupational ? COSTS.OCCUPATIONAL_INVESTIGATIVE : COSTS.INVESTIGATIVE
+        return acc + (value * cost)
+    }, 0)
+}
+
+export const calculateGeneralSpent = (generalSkills, occupationalSkills) => {
+    return Object.entries(generalSkills).reduce((acc, [id, value]) => {
+        const isOccupational = occupationalSkills.includes(id)
+        const cost = isOccupational ? COSTS.OCCUPATIONAL_GENERAL : COSTS.NON_OCCUPATIONAL_GENERAL
+        return acc + (value * cost)
+    }, 0)
+}
+
 // Age modifiers (optional rule)
 export const AGE_MODIFIERS = {
     young: { label: 'Joven (< 30)', generalBonus: 0, investigativeBonus: 0 },
