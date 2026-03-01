@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import SetupStep from './components/SetupStep'
 import PersonalInfoStep from './components/PersonalInfoStep'
@@ -56,6 +56,24 @@ export default function App() {
     const { t } = useTranslation()
     const [step, setStep] = useState(0)
     const [character, setCharacter] = useState(initialCharacter)
+
+    useEffect(() => {
+        // Disable automatic scroll restoration
+        if ('scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual'
+        }
+
+        // Robust scroll to top
+        const scrollToTop = () => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+            document.documentElement.scrollTop = 0
+            document.body.scrollTop = 0
+        }
+
+        // Small delay to ensure content is rendered
+        const timeoutId = setTimeout(scrollToTop, 0)
+        return () => clearTimeout(timeoutId)
+    }, [step])
 
     const updateCharacter = useCallback((updates) => {
         setCharacter(prev => ({ ...prev, ...updates }))
