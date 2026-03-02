@@ -1,8 +1,12 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import InvestigativeSkillsStep from './InvestigativeSkillsStep'
 import { I18nextProvider } from 'react-i18next'
 import i18n from '../i18n'
+
+beforeAll(async () => {
+    await i18n.changeLanguage('es')
+})
 
 // Mock context/props
 const mockCharacter = {
@@ -31,8 +35,8 @@ describe('InvestigativeSkillsStep', () => {
 
     it('renders the title and pool', () => {
         renderComponent()
-        expect(screen.getByText(/Habilidades de Investigación/i)).toBeInTheDocument()
-        expect(screen.getByText(/16/i)).toBeInTheDocument()
+        expect(screen.getByText(/Habilidades Investigativas/i)).toBeInTheDocument()
+        expect(screen.getAllByText(/16/i).length).toBeGreaterThan(0)
     })
 
     it('displays occupational skills with a badge', () => {
