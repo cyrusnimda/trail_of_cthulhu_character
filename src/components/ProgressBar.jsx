@@ -1,14 +1,26 @@
 export default function ProgressBar({ steps, currentStep, onStepClick }) {
+    // Every step is an equal-width column, so the circle centers sit at the middle of
+    // each column. The connector is drawn as one segment per gap between consecutive
+    // circles, stopping short of both, so it never runs behind a (translucent) circle.
+    const stepPct = 100 / steps.length
+    const gap = 20 // px: half the circle (w-8, scaled to 110% when active) plus a hair
+
     return (
         <div className="bg-void-900/60 border-b border-void-700 px-4 py-4">
             <div className="max-w-6xl mx-auto">
-                <div className="flex items-center justify-between relative">
-                    {/* Connecting line */}
-                    <div className="absolute top-4 left-0 right-0 h-px bg-void-600 z-0" />
-                    <div
-                        className="absolute top-4 left-0 h-px bg-gold-500/50 z-0 transition-all duration-500"
-                        style={{ width: `${(currentStep / (steps.length - 1)) * 100}%` }}
-                    />
+                <div className="flex items-start relative">
+                    {/* Connecting line, one segment between each pair of circles */}
+                    {steps.slice(0, -1).map((s, i) => (
+                        <div
+                            key={`line-${s.id}`}
+                            className={`absolute top-4 h-px z-0 transition-colors duration-500
+                  ${i < currentStep ? 'bg-gold-500/50' : 'bg-void-600'}`}
+                            style={{
+                                left: `calc(${(i + 0.5) * stepPct}% + ${gap}px)`,
+                                width: `calc(${stepPct}% - ${2 * gap}px)`,
+                            }}
+                        />
+                    ))}
 
                     {steps.map((s, i) => {
                         const isDone = i < currentStep
@@ -20,7 +32,7 @@ export default function ProgressBar({ steps, currentStep, onStepClick }) {
                                 key={s.id}
                                 onClick={() => isClickable && onStepClick(i)}
                                 disabled={!isClickable}
-                                className={`relative z-10 flex flex-col items-center gap-1.5 group
+                                className={`relative z-10 flex-1 flex flex-col items-center gap-1.5 group
                   ${isClickable ? 'cursor-pointer' : 'cursor-not-allowed'}`}
                             >
                                 <div className={`

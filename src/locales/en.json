@@ -83,7 +83,8 @@
         "pillars": {
             "title": "🌑 Pillars of Sanity",
             "description": "Define the three anchors that keep your investigator's sanity. They must be a person, a place, and a belief.",
-            "examples": "Examples: {{list}}"
+            "examples": "Examples: {{list}}",
+            "placeholder": "E.g. {{example}}"
         },
         "back": "← Back",
         "next": "Next: Investigative Skills →"
@@ -547,15 +548,37 @@
     "pillars_cat": {
         "person": {
             "name": "A Person",
-            "description": "Someone whose existence and well-being anchors your sanity."
+            "description": "Someone whose existence and well-being anchors your sanity.",
+            "examples": [
+                "Your spouse or partner",
+                "A child or close relative",
+                "Your best friend",
+                "A mentor or teacher",
+                "A patient or ward"
+            ]
         },
         "place": {
             "name": "A Place",
-            "description": "A place that represents safety, home or normalcy for you."
+            "description": "A place that represents safety, home or normalcy for you.",
+            "examples": [
+                "Your childhood home",
+                "Your hometown",
+                "Your office or laboratory",
+                "A church or temple",
+                "A place in nature"
+            ]
         },
         "belief": {
             "name": "A Belief or Ideal",
-            "description": "A principle, faith or ideal that gives meaning to your existence."
+            "description": "A principle, faith or ideal that gives meaning to your existence.",
+            "examples": [
+                "Religious faith",
+                "Science and the rational method",
+                "Human progress",
+                "Justice",
+                "Romantic love",
+                "Art and beauty"
+            ]
         }
     },
     "rules": {

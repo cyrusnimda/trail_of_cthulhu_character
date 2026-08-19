@@ -190,24 +190,28 @@ export default function PersonalInfoStep({ character, updateCharacter, goNext, g
                             {t('personal.pillars.description')}
                         </p>
                         <div className="space-y-4">
-                            {PILLAR_CATEGORIES.map(cat => (
-                                <div key={cat.id}>
-                                    <label className="block text-sm font-body font-medium text-parchment-300 mb-1">
-                                        {cat.icon} {t(`pillars_cat.${cat.id}.name`)}
-                                    </label>
-                                    <p className="text-xs text-parchment-400/50 font-body mb-2">{t(`pillars_cat.${cat.id}.description`)}</p>
-                                    <input
-                                        type="text"
-                                        value={pillars[cat.id]}
-                                        onChange={e => handlePillarChange(cat.id, e.target.value)}
-                                        placeholder={`Ej: ${cat.examples[0]}`}
-                                        className="input-field"
-                                    />
-                                    <p className="text-xs text-parchment-400/30 font-body mt-1">
-                                        {t('personal.pillars.examples', { list: cat.examples.slice(0, 3).join(', ') })}
-                                    </p>
-                                </div>
-                            ))}
+                            {PILLAR_CATEGORIES.map(cat => {
+                                const examples = t(`pillars_cat.${cat.id}.examples`, { returnObjects: true })
+
+                                return (
+                                    <div key={cat.id}>
+                                        <label className="block text-sm font-body font-medium text-parchment-300 mb-1">
+                                            {cat.icon} {t(`pillars_cat.${cat.id}.name`)}
+                                        </label>
+                                        <p className="text-xs text-parchment-400/50 font-body mb-2">{t(`pillars_cat.${cat.id}.description`)}</p>
+                                        <input
+                                            type="text"
+                                            value={pillars[cat.id]}
+                                            onChange={e => handlePillarChange(cat.id, e.target.value)}
+                                            placeholder={t('personal.pillars.placeholder', { example: examples[0] })}
+                                            className="input-field"
+                                        />
+                                        <p className="text-xs text-parchment-400/30 font-body mt-1">
+                                            {t('personal.pillars.examples', { list: examples.slice(0, 3).join(', ') })}
+                                        </p>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                 )}

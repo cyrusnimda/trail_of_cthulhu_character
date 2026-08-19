@@ -83,7 +83,8 @@
         "pillars": {
             "title": "🌑 Pilares de Cordura",
             "description": "Define las tres anclas que mantienen la cordura de tu investigador. Deben ser una persona, un lugar y una creencia.",
-            "examples": "Ejemplos: {{list}}"
+            "examples": "Ejemplos: {{list}}",
+            "placeholder": "Ej: {{example}}"
         },
         "back": "← Atrás",
         "next": "Siguiente: Habilidades Investigativas →"
@@ -547,15 +548,37 @@
     "pillars_cat": {
         "person": {
             "name": "Una Persona",
-            "description": "Alguien cuya existencia y bienestar ancla tu cordura."
+            "description": "Alguien cuya existencia y bienestar ancla tu cordura.",
+            "examples": [
+                "Tu cónyuge o pareja",
+                "Un hijo o familiar cercano",
+                "Tu mejor amigo",
+                "Un mentor o maestro",
+                "Un paciente o protegido"
+            ]
         },
         "place": {
             "name": "Un Lugar",
-            "description": "Un lugar que representa seguridad, hogar o normalidad para ti."
+            "description": "Un lugar que representa seguridad, hogar o normalidad para ti.",
+            "examples": [
+                "Tu hogar de infancia",
+                "Tu ciudad natal",
+                "Tu despacho o laboratorio",
+                "Una iglesia o templo",
+                "Un lugar de la naturaleza"
+            ]
         },
         "belief": {
             "name": "Una Creencia o Ideal",
-            "description": "Un principio, fe o ideal que da sentido a tu existencia."
+            "description": "Un principio, fe o ideal que da sentido a tu existencia.",
+            "examples": [
+                "La fe religiosa",
+                "La ciencia y el método racional",
+                "El progreso humano",
+                "La justicia",
+                "El amor romántico",
+                "El arte y la belleza"
+            ]
         }
     },
     "rules": {
